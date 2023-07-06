@@ -37,7 +37,7 @@ export default defineConfig({
         // Backwards-compat with Gatsby.
         env.GATSBY_MEDUSA_BACKEND_URL ||
         env.GATSBY_STORE_URL ||
-        ""
+        "http://localhost:9000"
     ),
   },
   optimizeDeps: {

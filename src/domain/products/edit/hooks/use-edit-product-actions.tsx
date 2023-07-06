@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom"
 import useImperativeDialog from "../../../../hooks/use-imperative-dialog"
 import useNotification from "../../../../hooks/use-notification"
 import { getErrorMessage } from "../../../../utils/error-messages"
+import api from "../../../../services/api"
 
 const useEditProductActions = (productId: string) => {
   const dialog = useImperativeDialog()
@@ -51,8 +52,9 @@ const useEditProductActions = (productId: string) => {
     successMessage = "Variant was created successfully"
   ) => {
     addVariant.mutate(payload, {
-      onSuccess: () => {
+      onSuccess: async () => {
         notification("Success", successMessage, "success")
+        await api.wmsArticles.update([payload])
         getProduct.refetch()
         onSuccess()
       },
@@ -72,8 +74,10 @@ const useEditProductActions = (productId: string) => {
       // @ts-ignore - TODO fix type on request
       { variant_id: id, ...payload },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
           notification("Success", successMessage, "success")
+          console.log(payload)
+          await api.wmsArticles.update([payload])
           getProduct.refetch()
           onSuccess()
         },
