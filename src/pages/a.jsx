@@ -20,6 +20,7 @@ import ProductsRoute from "../domain/products"
 import PublishableApiKeys from "../domain/publishable-api-keys"
 import SalesChannels from "../domain/sales-channels"
 import Settings from "../domain/settings"
+import PurchaseOrders from "../domain/purchase-orders"
 
 const IndexPage = () => {
   const navigate = useNavigate()
@@ -51,6 +52,7 @@ const DashboardRoutes = () => {
             <Route path="pricing/*" element={<Pricing />} />
             <Route path="settings/*" element={<Settings />} />
             <Route path="sales-channels/*" element={<SalesChannels />} />
+            <Route path="purchase-orders/*" element={<PurchaseOrders />} />
             <Route
               path="publishable-api-keys/*"
               element={<PublishableApiKeys />}
