@@ -1,4 +1,3 @@
-import { Column } from "@tanstack/react-table"
 import Table from "../../../components/molecules/table"
 import { useTable } from "react-table"
 import api from "../../../services/api"
