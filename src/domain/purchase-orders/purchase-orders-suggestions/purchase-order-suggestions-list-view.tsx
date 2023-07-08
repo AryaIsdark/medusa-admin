@@ -8,16 +8,16 @@ import Button from "../../../components/fundamentals/button"
 
 const exportPurchaseOrders = (jsonData) => {
   const rearrangedData = jsonData.map((item) => ({
-    productReference: item.productReference,
-    productQuantity: item.productQuantity,
-    productName: item.productName,
+    "Product Reference": item.productReference,
+    "Product Quantity": item.productQuantity,
+    "Product Name": item.productName,
   }))
-  // Create a new workbook
-  const workbook = XLSX.utils.book_new()
 
   // Convert JSON to worksheet
   const worksheet = XLSX.utils.json_to_sheet(rearrangedData)
 
+  // Create a new workbook
+  const workbook = XLSX.utils.book_new()
   // Add the worksheet to the workbook
   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1")
 
