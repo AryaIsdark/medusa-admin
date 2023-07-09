@@ -627,7 +627,7 @@ export default {
         formData.append("files", f)
       }
 
-      return medusaRequest("POST", "/admin/uploads", formData)
+      return medusaRequest("POST", "/admin/wms/upload-images", formData)
     },
   },
 
