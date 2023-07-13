@@ -31,6 +31,10 @@ export default {
       formData.append("file", file)
       return medusaRequest("post", path, formData)
     },
+    bulkDelete() {
+      const path = `admin/custom/supplier/bulk-delete-products`
+      return medusaRequest("post", path)
+    },
   },
 
   productSync: {

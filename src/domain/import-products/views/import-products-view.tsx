@@ -6,34 +6,41 @@ import { LoaderIcon } from "react-hot-toast"
 import BodyCard from "../../../components/organisms/body-card"
 import { ImportPorductsTable } from "./import-products-table"
 import { ImportProductsActions } from "./import-products-action"
+import useNotification from "../../../hooks/use-notification"
 
 export const updatePriceByPercentage = (currentPrice, percentage) =>
   ((percentage / currentPrice) * 100 + currentPrice).toFixed(2)
 
 export const ImportProductsView = () => {
   const [loading, setLoading] = useState(false)
-  const [loadingProducts, setLoadingProducts] = useState(false)
+  const [processingFile, setProcessingFile] = useState(false)
+  const [shouldPoll, setShouldPoll] = useState(false)
   const [validationErrors, setValidationErrors] = useState([])
   const [products, setProducts] = useState([])
   const [productsFromFile, setProductsFromFile] = useState([])
   const [file, setFile] = useState()
+  const notifitation = useNotification()
+
+  const loadProducts = () => {
+    setLoading(true)
+    api.supplierProduct.list().then((res) => {
+      setLoading(false)
+      setProducts(res.data.data)
+    })
+  }
 
   const handleAddProducts = () => {
-    console.log(file)
     api.supplierProduct.bulkCreate(file).then((res) => {
-      console.log(res)
+      notifitation("Good Job!", "Products were added to the system", "success")
+      setProductsFromFile([])
+      loadProducts()
+      setShouldPoll(true)
     })
-    // .bulkCreate(products)
-    // .then((res) => {
-    //   console.log(res)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
   }
 
   const handleFileUpload = (files) => {
-    setLoading(true)
+    setShouldPoll(false)
+    setProcessingFile(true)
     api.productSync
       .upload(files[0])
       .then((res) => {
@@ -41,30 +48,52 @@ export const ImportProductsView = () => {
         const prodcutsFromServer = res.data.data
         console.log(prodcutsFromServer)
         setProductsFromFile(prodcutsFromServer)
-        setLoading(false)
         setFile(files[0])
       })
       .catch((err) => {
         const validationErrorsFromServer = err?.response?.data?.validationErrors
         if (validationErrorsFromServer) {
           setValidationErrors(validationErrorsFromServer)
-          setLoading(false)
+          setProcessingFile(false)
         }
       })
       .finally(() => {
-        setLoading(false)
+        setProcessingFile(false)
       })
   }
 
-  useEffect(() => {
-    setLoadingProducts(true)
-    api.supplierProduct.list().then((res) => {
-      setLoadingProducts(false)
-      setProducts(res.data.data)
+  const handleBulkDelete = () => {
+    setLoading(true)
+    api.supplierProduct.bulkDelete().then((res) => {
+      loadProducts()
+      setLoading(false)
     })
-  }, [])
+  }
 
-  if (loading) {
+  useEffect(() => {
+    const fetchData = async () => {
+      loadProducts()
+    }
+    fetchData()
+    if (shouldPoll) {
+      // Start polling every 3 seconds (adjust the interval as needed)
+      const intervalId = setInterval(fetchData, 3000)
+      // Stop polling after 10 seconds
+      const timeoutId = setTimeout(() => {
+        clearInterval(intervalId)
+      }, 10000)
+
+      // Clean up the interval and timeout when the component unmounts
+      return () => {
+        clearInterval(intervalId)
+        clearTimeout(timeoutId)
+      }
+    }
+
+    // Clean up the interval when the component unmounts
+  }, [shouldPoll])
+
+  if (processingFile) {
     return (
       <div
         style={{
@@ -171,9 +200,24 @@ export const ImportProductsView = () => {
         title={`${products.length} Products`}
         subtitle="These are products from the supplier that are currently saved in our DB"
         className="h-fit"
+        customActionable={
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {loading && <LoaderIcon />}
+            {!!products.length && (
+              <Button
+                disabled={loading}
+                variant="nuclear"
+                size="small"
+                onClick={handleBulkDelete}
+              >
+                Delete (1000 Rows)
+              </Button>
+            )}
+          </div>
+        }
       >
-        {products.length && <ImportPorductsTable data={products} />}
-        {!products.length && !loadingProducts && (
+        {!!products.length && <ImportPorductsTable data={products} />}
+        {!products.length && !loading && (
           <>Currently there are no products added in the supplier database</>
         )}
       </BodyCard>
