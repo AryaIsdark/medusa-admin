@@ -21,6 +21,7 @@ import PublishableApiKeys from "../domain/publishable-api-keys"
 import SalesChannels from "../domain/sales-channels"
 import Settings from "../domain/settings"
 import PurchaseOrders from "../domain/purchase-orders"
+import ImportProducts from '../domain/import-products'
 
 const IndexPage = () => {
   const navigate = useNavigate()
@@ -43,6 +44,7 @@ const DashboardRoutes = () => {
           <Routes className="h-full">
             <Route path="oauth/:app_name" element={<Oauth />} />
             <Route path="products/*" element={<ProductsRoute />} />
+            <Route path="supplier-products/*" element={<ImportProducts />} />
             <Route path="collections/*" element={<Collections />} />
             <Route path="gift-cards/*" element={<GiftCards />} />
             <Route path="orders/*" element={<Orders />} />

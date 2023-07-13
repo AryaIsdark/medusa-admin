@@ -15,13 +15,40 @@ const buildQueryFromObject = (search, prefix = "") =>
 export default {
   wmsPurchaseOrderSuggestions: {
     list() {
-      const path = `/admin/wms/purchase-orders/suggestions`
+      const path = `/admin/custom/wms/purchase-orders/suggestions`
       return medusaRequest("get", path)
     },
   },
+
+  supplierProduct: {
+    list() {
+      const path = `/admin/custom/supplier/products`
+      return medusaRequest("get", path)
+    },
+    bulkCreate(file) {
+      const path = `admin/custom/supplier/bulk-add-products`
+      const formData = new FormData()
+      formData.append("file", file)
+      return medusaRequest("post", path, formData)
+    },
+  },
+
+  productSync: {
+    upload(file) {
+      const formData = new FormData()
+      formData.append("file", file)
+
+      return medusaRequest(
+        "POST",
+        "/admin/custom/supplier/process-product-file",
+        formData
+      )
+    },
+  },
+
   wmsArticles: {
     update(payload) {
-      const path = `/admin/wms/create-articles`
+      const path = `/admin/custom/wms/create-articles`
       return medusaRequest("PUT", path, payload)
     },
   },

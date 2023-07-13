@@ -11,6 +11,8 @@ import TagIcon from "../../fundamentals/icons/tag-icon"
 import UsersIcon from "../../fundamentals/icons/users-icon"
 import SidebarMenuItem from "../../molecules/sidebar-menu-item"
 import UserMenu from "../../molecules/user-menu"
+import SearchIcon from "../../fundamentals/icons/search-icon"
+import ListIcon from "../../fundamentals/icons/list-icon"
 
 const ICON_SIZE = 20
 
@@ -60,7 +62,13 @@ const Sidebar: React.FC = () => {
           <SidebarMenuItem
             pageLink={"/a/products"}
             icon={<TagIcon size={ICON_SIZE} />}
-            text={"Products"}
+            text={"Store Products"}
+            triggerHandler={triggerHandler}
+          />
+          <SidebarMenuItem
+            pageLink={"/a/supplier-products"}
+            icon={<SearchIcon size={ICON_SIZE} />}
+            text={"Supplier Products"}
             triggerHandler={triggerHandler}
           />
           <SidebarMenuItem
@@ -96,16 +104,16 @@ const Sidebar: React.FC = () => {
             text={"Pricing"}
           />
           <SidebarMenuItem
+            pageLink={"/a/purchase-orders"}
+            icon={<ListIcon size={ICON_SIZE} />}
+            triggerHandler={triggerHandler}
+            text={"Purchase Orders"}
+          />
+          <SidebarMenuItem
             pageLink={"/a/settings"}
             icon={<GearIcon size={ICON_SIZE} />}
             triggerHandler={triggerHandler}
             text={"Settings"}
-          />
-          <SidebarMenuItem
-            pageLink={"/a/purchase-orders"}
-            icon={<GearIcon size={ICON_SIZE} />}
-            triggerHandler={triggerHandler}
-            text={"Purchase Orders"}
           />
         </div>
       </div>
