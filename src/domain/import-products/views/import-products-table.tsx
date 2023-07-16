@@ -8,17 +8,32 @@ const LIMIT = 20
 const columns = [
   {
     Header: "Reference / SKU",
-    accessor: "sku",
+    accessor: "reference",
     Cell: ({ cell: { value } }) => value,
   },
   {
-    Header: "Name",
-    accessor: "product",
+    Header: "Combination Reference",
+    accessor: "combinationReference",
     Cell: ({ cell: { value } }) => value,
   },
   {
-    Header: "RRP",
-    accessor: "rpr",
+    Header: "Product Name",
+    accessor: "productName",
+    Cell: ({ cell: { value } }) => value,
+  },
+  {
+    Header: "Atrribute Group Name",
+    accessor: "attributeGroup",
+    Cell: ({ cell: { value } }) => value,
+  },
+  {
+    Header: "price",
+    accessor: "price",
+    Cell: ({ cell: { value } }) => value,
+  },
+  {
+    Header: "Combination Price",
+    accessor: "combinationPrice",
     Cell: ({ cell: { value } }) => value,
   },
 ]
