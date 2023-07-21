@@ -11,29 +11,16 @@ const columns = [
     accessor: "reference",
     Cell: ({ cell: { value } }) => value,
   },
-  {
-    Header: "Combination Reference",
-    accessor: "combinationReference",
-    Cell: ({ cell: { value } }) => value,
-  },
+
   {
     Header: "Product Name",
     accessor: "productName",
     Cell: ({ cell: { value } }) => value,
   },
+
   {
-    Header: "Atrribute Group Name",
-    accessor: "attributeGroup",
-    Cell: ({ cell: { value } }) => value,
-  },
-  {
-    Header: "price",
-    accessor: "price",
-    Cell: ({ cell: { value } }) => value,
-  },
-  {
-    Header: "Combination Price",
-    accessor: "combinationPrice",
+    Header: "rpr",
+    accessor: "rpr",
     Cell: ({ cell: { value } }) => value,
   },
 ]
