@@ -2,13 +2,14 @@ import { useTable, usePagination } from "react-table"
 import Table from "../../../components/molecules/table"
 import { useState } from "react"
 import { TablePagination } from "../../../components/organisms/table-container/pagination"
+import StatusIndicator from "../../../components/fundamentals/status-indicator"
 
 const LIMIT = 20
 
 const columns = [
   {
     Header: "Reference / SKU",
-    accessor: "reference",
+    accessor: "sku",
     Cell: ({ cell: { value } }) => value,
   },
 
@@ -19,9 +20,20 @@ const columns = [
   },
 
   {
-    Header: "rpr",
-    accessor: "rpr",
+    Header: "Quantity In Stock",
+    accessor: "quantity",
     Cell: ({ cell: { value } }) => value,
+  },
+
+  {
+    Header: "Status",
+    accessor: "isCreatedInStore",
+    Cell: ({ cell: { value } }) =>
+      value === true ? (
+        <StatusIndicator title={"In Store"} variant={"success"} />
+      ) : (
+        <StatusIndicator title={"Not In Store"} variant={"warning"} />
+      ),
   },
 ]
 
