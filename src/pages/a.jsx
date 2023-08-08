@@ -21,7 +21,8 @@ import PublishableApiKeys from "../domain/publishable-api-keys"
 import SalesChannels from "../domain/sales-channels"
 import Settings from "../domain/settings"
 import PurchaseOrders from "../domain/purchase-orders"
-import ImportProducts from '../domain/import-products'
+import ImportProducts from "../domain/import-products"
+import ErrorLogs from "../domain/error-logs"
 
 const IndexPage = () => {
   const navigate = useNavigate()
@@ -55,6 +56,7 @@ const DashboardRoutes = () => {
             <Route path="settings/*" element={<Settings />} />
             <Route path="sales-channels/*" element={<SalesChannels />} />
             <Route path="purchase-orders/*" element={<PurchaseOrders />} />
+            <Route path="error-logs/*" element={<ErrorLogs />} />
             <Route
               path="publishable-api-keys/*"
               element={<PublishableApiKeys />}
