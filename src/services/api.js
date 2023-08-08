@@ -13,6 +13,12 @@ const buildQueryFromObject = (search, prefix = "") =>
     .join("&")
 
 export default {
+  errorLogs: {
+    list() {
+      const path = `/admin/custom/error-logs`
+      return medusaRequest("get", path)
+    },
+  },
   wmsPurchaseOrderSuggestions: {
     list() {
       const path = `/admin/custom/wms/purchase-orders/suggestions`

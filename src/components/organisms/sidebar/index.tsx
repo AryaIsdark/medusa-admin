@@ -13,6 +13,7 @@ import SidebarMenuItem from "../../molecules/sidebar-menu-item"
 import UserMenu from "../../molecules/user-menu"
 import SearchIcon from "../../fundamentals/icons/search-icon"
 import ListIcon from "../../fundamentals/icons/list-icon"
+import ClockIcon from "../../fundamentals/icons/clock-icon"
 
 const ICON_SIZE = 20
 
@@ -69,6 +70,12 @@ const Sidebar: React.FC = () => {
             pageLink={"/a/supplier-products"}
             icon={<SearchIcon size={ICON_SIZE} />}
             text={"Supplier Products"}
+            triggerHandler={triggerHandler}
+          />
+          <SidebarMenuItem
+            pageLink={"/a/error-logs"}
+            icon={<ClockIcon size={ICON_SIZE} />}
+            text={"Logs"}
             triggerHandler={triggerHandler}
           />
           <SidebarMenuItem
